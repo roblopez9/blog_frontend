@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
