@@ -1,14 +1,11 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import createPostSlice from './post-slice';
 
-const useStore = create(devtools(immer((set) => {
-  return {
-    count: 0,
-    // careful with this syntax - if 2nd arg is true it will replace all state rather than merge
-    increment: () => set((draftState) => { draftState.count += 1; }, false, 'count/increment'),
-    decrement: () => set((draftState) => { draftState.count -= 1; }, false, 'count/decrement'),
-  };
-})));
+const useStore = create(devtools(immer((...args) => ({
+
+  postSlice: createPostSlice(...args),
+}))));
 
 export default useStore;
