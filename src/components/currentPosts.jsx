@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate, useParams } from 'react-router';
 import { ChakraProvider, Spinner } from '@chakra-ui/react';
+import '@mantine/core/styles.css';
+import { Loader, MantineProvider } from '@mantine/core';
 import useStore from '../store';
 import TrashIcon from '../img/trashIcon';
 import UploadIcon from '../img/uploadIcon';
@@ -32,9 +34,9 @@ function Postid(params) {
 
   const updatingPost = async () => {
     await updatePost(id, {
-      title,
-      tags,
-      content,
+      Title: title,
+      Content: content,
+      Tags: tags,
     });
     navigate('/');
   };
@@ -52,29 +54,32 @@ function Postid(params) {
   }, [id]);
 
   useEffect(() => {
-    setTitle(post.title || '');
-    setTags(post.tags || '');
-    setWord(post.content || '');
+    setTitle(post.Title || '');
+    setTags(post.Tags || '');
+    setWord(post.Content || '');
   }, [post]);
 
   if (isloading) {
     return (
-      <ChakraProvider>
 
-        <div style={{
-          display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh',
-        }}
-        >
-          <Spinner size="xl" thickness="6px" color="#F0E1CC" />
-        </div>
-      </ChakraProvider>
+      <div style={{
+        display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center', height: '50vh',
+      }}
+      >
+        <Loader size="xl" color="#F0E1CC" />
+        <h1 style={{ color: '#F0E1CC' }}>
+          Loading...
+        </h1>
+      </div>
     );
   }
 
   return (
     <div className="postIdContainer">
+      <div className="postImgCove">
+        <img src={post.coverUrl} alt="" />
+      </div>
       <div className="postTitle">
-
         {
           titleisediting ? (
             <input onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />

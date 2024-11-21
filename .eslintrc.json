@@ -10,6 +10,7 @@
     "rules": {
         "strict": 0,
         "quotes": [2, "single"],
+        "object-shorthand": "off",
         "no-else-return": 0,
         "new-cap": ["error", {"capIsNewExceptions": ["Router"]}],
         "no-console": 0,

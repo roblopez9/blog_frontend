@@ -13,6 +13,7 @@ import NewPosts from './newPosts';
 import Posts from './posts';
 import Postid from './currentPosts';
 import NewPostIcon from '../img/new_post_bttn';
+import BlogHooks from './BlogHooks';
 
 function Nav(props) {
   return (
@@ -27,12 +28,7 @@ function Nav(props) {
 
 function Welcome(props) {
   return (
-    <div className="postwrapper">
-      <div className="postheader">
-        <h1>Posts</h1>
-      </div>
-      <Posts />
-    </div>
+    <Posts />
   );
 }
 

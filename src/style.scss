@@ -158,3 +158,42 @@ background-color: white;
 .postTitle h1{
   margin: 0;
 }
+
+.searchList{
+  border: 1px solid gray;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute;
+  top: 10px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  // opacity: 0;
+  top: 140px;
+  width: 500px;
+}
+
+.searchList h4, .searchList span{
+    padding-left: 10px;
+}
+
+.postListFound{
+  height: 2em;
+  text-decoration: none;
+  color: black;
+}
+.postListFound:hover{
+  cursor: pointer;
+  background-color: #f2f4f7;
+  border-radius: 8px;
+  // border: 0px;
+}
+.searchWrapper{
+  display: flex;
+  justify-content: center;
+}
+.searchContainer{
+  width: 500px;
+}
+

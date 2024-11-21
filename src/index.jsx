@@ -6,12 +6,14 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.scss';
 import { ChakraProvider } from '@chakra-ui/react';
+import { MantineProvider } from '@mantine/core';
+
 import App from './components/app';
 
 const root = createRoot(document.getElementById('main'));
 root.render(
-//   <ChakraProvider>
+  <MantineProvider>
+    <App />,
+  </MantineProvider>,
 
-  <App />,
-//   </ChakraProvider>,
 );

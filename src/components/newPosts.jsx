@@ -21,12 +21,16 @@ function NewPosts(props) {
       alert('Please fill out the title, tags, and content fields.');
       return; // Stop the function if fields are empty
     }
-    await newPost({
-      title,
-      tags,
-      content,
-      coverUrl,
-    });
+    try {
+      await newPost({
+        Title: title,
+        Content: content,
+        Tags: tags,
+        coverUrl: coverUrl,
+      });
+    } catch (error) {
+      console.log(error);
+    } 
     navigate('/');
   };
   return (
