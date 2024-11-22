@@ -1,6 +1,6 @@
 body, html {
     font-family: "Roboto", sans-serif;
-    background-color: white;
+    background-color: #4A4137;
     height: 100%;
     overflow: auto;
     margin: 0;
@@ -22,9 +22,20 @@ body, html {
 
 
 .navBar{
-  background-color: #F0E1CC;
+  background-color: #321F33;
 }
 
+.navEndContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.navEndContainer button{
+  cursor: pointer;
+}
 .bttn_style{
   display: flex;
   justify-content: space-around;
@@ -65,7 +76,7 @@ body, html {
 
 .navBar li a{
   text-decoration: none;
-  color: #0D96BA;
+  color: white;
 }
 
 .navBar li a:hover{
@@ -123,6 +134,16 @@ background-color: white;
   padding: 20px;
 }
 
+.signInContainer, .signUpContainer{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0px auto;
+  padding: 20px;
+  gap: 1em;
+}
+
 // .postIdContainer input{
 //   box-sizing: border-box;
 //   display: block;
@@ -152,11 +173,14 @@ background-color: white;
   width: 100%;
   box-sizing: border-box;
 }
-.postTitle{
-  height: 30px;
-}
 .postTitle h1{
   margin: 0;
+}
+.authorName h2{
+  margin-bottom: 0;
+}
+.tagsContainer p{
+  margin-top: 0;
 }
 
 .searchList{

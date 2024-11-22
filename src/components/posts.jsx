@@ -10,7 +10,13 @@ import BlogHooks from './BlogHooks';
 function Posts(props) {
   const allPosts = useStore(({ postSlice }) => postSlice.all);
   const fetchAllPosts = useStore(({ postSlice }) => postSlice.fetchAllPosts);
+
+  // const gettingAllposts = async () => {
+  //   await fetchAllPosts();
+  // };
+
   useEffect(() => {
+    // gettingAllposts();
     fetchAllPosts();
   }, []);
   return (

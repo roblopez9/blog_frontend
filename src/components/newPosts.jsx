@@ -15,6 +15,7 @@ function NewPosts(props) {
   const [coverUrl, setImage] = useState('');
   const newPost = useStore(({ postSlice }) => postSlice.createPost);
   const navigate = useNavigate();
+  const fetchAllPosts = useStore(({ postSlice }) => postSlice.fetchAllPosts);
 
   const onCreatePost = async () => {
     if (!title.trim() || !tags.trim() || !content.trim()) {
@@ -27,11 +28,12 @@ function NewPosts(props) {
         Content: content,
         Tags: tags,
         coverUrl: coverUrl,
-      });
+      }, navigate);
+      await fetchAllPosts(); // Re-fetch all posts after creating the new one
+      navigate('/');
     } catch (error) {
       console.log(error);
     } 
-    navigate('/');
   };
   return (
     <div className="newPostcontainer">

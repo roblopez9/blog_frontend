@@ -13,7 +13,7 @@ import App from './components/app';
 const root = createRoot(document.getElementById('main'));
 root.render(
   <MantineProvider>
-    <App />,
+    <App />
   </MantineProvider>,
 
 );

@@ -17,6 +17,7 @@ function Postid(params) {
   const [tagisediting, setTagisediting] = useState(false);
   const [contentisediting, setContentisediting] = useState(false);
   const [isloading, setisloading] = useState(true);
+  const currentemail = useStore(({ authSlice }) => authSlice.currentemail);
   const fetchPost = useStore(({ postSlice }) => postSlice.fetchPost);
   const post = useStore(({ postSlice }) => postSlice.current);
   const deletePost = useStore(({ postSlice }) => postSlice.deletePost);
@@ -28,8 +29,13 @@ function Postid(params) {
   const [content, setWord] = useState('');
 
   const deletingPost = async () => {
-    await deletePost(id);
-    navigate('/');
+    // if (currentemail === post.Author.email) {
+      await deletePost(id);
+      // console.log('is the author of post');
+      navigate('/');
+    // } else {
+    //   console.log('not the author');
+    // }
   };
 
   const updatingPost = async () => {
@@ -79,25 +85,30 @@ function Postid(params) {
       <div className="postImgCove">
         <img src={post.coverUrl} alt="" />
       </div>
-      <div className="postTitle">
-        {
-          titleisediting ? (
-            <input onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />
-          )
-            : (
-              <h1 onClick={() => setTitleisediting(true)}>{title}</h1>
-
-            )
-        }
+      <div className="authorName">
+        <h2>
+          Author: {post.Author.username}
+        </h2>
       </div>
-      <div>
+      <div className="tagsContainer">
 
         {
           tagisediting ? (
             <input className="editableInput" onBlur={() => setTagisediting(false)} value={tags} onChange={(e) => setTags(e.target.value)} />
           )
             : (
-              <h3 className="editableInput" onClick={() => setTagisediting(true)}>{tags}</h3>
+              <p className="editableInput" onClick={() => setTagisediting(true)}>{tags}</p>
+
+            )
+        }
+      </div>
+      <div className="postTitle">
+        {
+          titleisediting ? (
+            <input className="editableInput" onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />
+          )
+            : (
+              <h1 onClick={() => setTitleisediting(true)}>{title}</h1>
 
             )
         }
@@ -116,17 +127,25 @@ function Postid(params) {
             )
         }
       </div>
-      <div className="bttn_style">
-        <div className="updateBttn" onClick={updatingPost}>
-          <UploadIcon />
-          <p style={{ margin: '0px' }}> Update</p>
-        </div>
-        <div className="deleteBttn" onClick={deletingPost}>
-          <TrashIcon />
-          <p style={{ margin: '0px' }}>Delete</p>
-        </div>
+      {
+        currentemail === post.Author.email ? (
+          <div className="bttn_style">
+            <div className="updateBttn" onClick={updatingPost}>
+              <UploadIcon />
+              <p style={{ margin: '0px' }}> Update</p>
+            </div>
 
-      </div>
+            <div className="deleteBttn" onClick={deletingPost}>
+              <TrashIcon />
+              <p style={{ margin: '0px' }}>Delete</p>
+            </div>
+
+          </div>
+        ) : (
+          <div />
+        )
+      }
+
     </div>
   );
 }
