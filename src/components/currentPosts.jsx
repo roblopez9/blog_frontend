@@ -93,7 +93,7 @@ function Postid(params) {
       <div className="tagsContainer">
 
         {
-          tagisediting ? (
+          tagisediting && currentemail === post.Author.email ? (
             <input className="editableInput" onBlur={() => setTagisediting(false)} value={tags} onChange={(e) => setTags(e.target.value)} />
           )
             : (
@@ -104,7 +104,7 @@ function Postid(params) {
       </div>
       <div className="postTitle">
         {
-          titleisediting ? (
+          titleisediting && currentemail === post.Author.email ? (
             <input className="editableInput" onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />
           )
             : (
@@ -116,7 +116,7 @@ function Postid(params) {
       <div>
 
         {
-          contentisediting ? (
+          contentisediting && currentemail === post.Author.email ? (
             <textarea onBlur={() => setContentisediting(false)} value={content} onChange={(e) => setWord(e.target.value)} />
           )
             : (

@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // import { createRoot } from 'react-dom/client';
 import '../style.scss';
 import { useParams, useNavigate } from 'react-router';
 import {
   BrowserRouter, Routes, Route, NavLink,
 } from 'react-router-dom';
-import { Button } from '@mantine/core';
+import { Avatar, Button } from '@mantine/core';
 import NewPosts from './newPosts';
 import Posts from './posts';
 import Postid from './currentPosts';
@@ -18,39 +18,7 @@ import useStore from '../store';
 import SignIn from './signIn';
 import SignUp from './signUp';
 import RequireAuth from './auth';
-
-function Nav(props) {
-  const authenticated = useStore(({ authSlice }) => authSlice.authenticated);
-  const signOut = useStore(({ authSlice }) => authSlice.signoutUser);
-  const navigate = useNavigate();
-
-  const sigingOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
-  return (
-    <nav className="navBar">
-      <ul>
-        <li><NavLink to="/">Home</NavLink></li>
-        <div className="navEndContainer">
-          <li><NavLink to="/posts/new"> <NewPostIcon /></NavLink></li>
-          <li> {
-            !authenticated ? (
-              <NavLink to="/signin"><Button radius="xl" color="#41093E"> Log in</Button></NavLink>
-
-            ) : (
-
-              <Button color="#41093E" radius="xl" onClick={sigingOut}> Sign Out</Button>
-            )
-
-          }
-          </li>
-        </div>
-      </ul>
-    </nav>
-  );
-}
+import Nav from './nav';
 
 function Welcome(props) {
   return (
