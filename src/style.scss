@@ -15,24 +15,29 @@ body, html {
     --speed: 500ms; 
 
   }
-  
-// .logo{
-//   background-image: url('img/fiverr-logo-1.png');
-//   width: 100px;
-//   height: 100px;
-//   background-repeat: no-repeat;
-//   background-size: contain;
-// }
-
-
 
 .navBar {
+  display: flex;
   height: var(--nav-size);
   background-color: #321F33;
   padding: 0 calc(var(--nav-size) * 1.2);
   border-bottom: var(--border);
 
 }
+.leftnavSection{
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+  padding-right: 1em;
+}
+
+.navmidsection{
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  flex: 1 1 0%;
+}
+
 .navBar ul{
   max-width: 100%;
   height: 100%;
@@ -56,23 +61,14 @@ body, html {
   align-items: center;
   justify-content: center;
   transition: filter 300ms;
+  text-decoration: none;
+  color: #f2f4f7;
 }
 
 .navBar li a:hover, .profile:hover{
   filter: brightness(1.2);
   cursor: pointer;
 }
-// .navEndContainer{
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: center;
-//   gap: 1em;
-// }
-
-// .navEndContainer button{
-//   cursor: pointer;
-// }
 .bttn_style{
   display: flex;
   justify-content: space-around;
@@ -228,21 +224,6 @@ background-color: white;
   margin-top: 0;
 }
 
-.searchList{
-  border: 1px solid gray;
-  border-radius: 8px;
-  overflow: hidden;
-  position: absolute;
-  top: 10px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  z-index: 100;
-  // opacity: 0;
-  top: 140px;
-  width: 500px;
-}
-
 .searchList h4, .searchList span{
     padding-left: 10px;
 }
@@ -258,11 +239,42 @@ background-color: white;
   border-radius: 8px;
   // border: 0px;
 }
+
 .searchWrapper{
   display: flex;
-  justify-content: center;
-}
-.searchContainer{
-  width: 500px;
+  width: 100%;
+  justify-content: stretch;
+  margin-left: auto;
+  flex: 1 1 0%;
 }
 
+.searchContainer{
+  width: 100%;
+}
+
+
+.searchBarFormat{
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.searchBar{
+
+}
+
+.searchList{
+  border: 1px solid gray;
+  border-radius: 8px;
+  overflow: hidden;
+  position: absolute; /* Position relative to .searchContainer */
+  background: white;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  // opacity: 0;
+  top: 50px;
+  // left: 0; /* Align with the search bar's left edge */
+  width: 500px;
+}

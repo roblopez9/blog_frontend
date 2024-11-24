@@ -2,8 +2,8 @@
 import axios from 'axios';
 
 export default function createPostSlice(set, get) {
-  const ROOT_URL = 'https://backend-blog-dope.onrender.com';
-  // const ROOT_URL = 'http://localhost:9090';
+  // const ROOT_URL = 'https://backend-blog-dope.onrender.com';
+  const ROOT_URL = 'http://localhost:9090';
 
   return {
     all: [],

@@ -22,7 +22,6 @@ function Posts(props) {
   return (
 
     <div className="postwrapper">
-      <BlogHooks />
       <div className="postheader">
         <h1>Posts</h1>
       </div>
