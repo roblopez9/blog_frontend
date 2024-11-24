@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {
   useCallback, useRef, useState, useEffect,
 } from 'react';
@@ -11,6 +12,7 @@ function BlogHooks() {
   const searchPosts = useStore(({ postSlice }) => postSlice.searchPost);
   const [postList, setpostList] = useState([]);
   const [onsearch, setonSearch] = useState(false);
+  const [searchText, setsearchText] = useState('');
 
   const searchContainerRef = useRef(null);
 
@@ -30,8 +32,15 @@ function BlogHooks() {
   const debounceSearch = useCallback(debounce(search, 500), []);
 
   const handleSearchChange = (event) => {
+    setsearchText(event.target.value);
     const text = event.target.value;
     debounceSearch(text);
+  };
+
+  const handleBlogClick = () => {
+    setonSearch(false);
+    setsearchText('');
+    debounceSearch('');
   };
 
   const handleFocus = () => setonSearch(true);
@@ -55,32 +64,37 @@ function BlogHooks() {
 
   return (
     <div className="searchWrapper">
-      <div className="searchContainer" ref={searchContainerRef}>
-        <TextInput
-          leftSection={<SearchIcon />}
-          style={{ width: '500px' }}
-          onFocus={handleFocus}
-          onChange={handleSearchChange}
-          radius="xl"
-          placeholder="Search Article"
-        />
-        {onsearch && (
-          <div className="searchList">
-            {postList.length === 0 ? (
-              <h4>No article found</h4>
-            ) : (
-              postList.map((post) => (
-                <NavLink
-                  to={`posts/${post.id}`}
-                  className="postListFound"
-                  key={post.id}
-                >
-                  <span>{post.Title}</span>
-                </NavLink>
-              ))
-            )}
-          </div>
-        )}
+      <div className="searchContainer">
+        <div className="searchBarFormat" ref={searchContainerRef}>
+          <TextInput className="searchBar"
+            leftSection={<SearchIcon />}
+            style={{ width: '500px' }}
+            onFocus={handleFocus}
+            onChange={handleSearchChange}
+            radius="xl"
+            placeholder="Search Article"
+            value={searchText}
+          />
+          {onsearch && (
+            <div className="searchList">
+              {postList.length === 0 ? (
+                <h4>No article found</h4>
+              ) : (
+                postList.map((post) => (
+                  <NavLink
+                    to={`posts/${post.id}`}
+                    className="postListFound"
+                    key={post.id}
+                    onClick={handleBlogClick}
+                  >
+                    <span>{post.Title}</span>
+                  </NavLink>
+                ))
+              )}
+            </div>
+          )}
+
+        </div>
       </div>
     </div>
   );

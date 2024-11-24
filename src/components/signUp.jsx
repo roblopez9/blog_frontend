@@ -23,7 +23,7 @@ function SignUp(props) {
     });
     const { authenticated } = useStore.getState().authSlice;
 
-    console.log(authenticated);
+    // console.log(authenticated);
     if (authenticated) {
       navigate('/');
     }
