@@ -22,13 +22,22 @@ export default function createPostSlice(set, get) {
         get().errorSlice.newError(error.message);
       }
     },
-    fetchAllPosts: async () => {
+    fetchAllPosts: async (pagenum) => {
       // GET
       // would need pagination but for now we'll just get them all
       // const ROOT_URL = 'http://localhost:9090';
       try {
-        const response = await axios.get(`${ROOT_URL}/api/posts`);
-        set(({ postSlice }) => { postSlice.all = response.data; }, false, 'post/fetchAllPosts');
+        const response = await axios.get(`${ROOT_URL}/api/posts?p=${pagenum}`);
+        set(
+          (state) => ({
+            postSlice: {
+              ...state.postSlice, // Keep the existing postSlice state
+              all: [...state.postSlice.all, ...response.data], // Append new posts to existing ones
+            },
+          }),
+          false, // Disable logging to DevTools by default
+          'post/fetchAllPosts', // Action name for DevTools debugging
+        );
       } catch (error) {
         get().errorSlice.newError(error.message);
       }
