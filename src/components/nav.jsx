@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable max-len */
 /* eslint-disable react/no-this-in-sfc */
 /* eslint-disable no-unused-vars */
@@ -8,6 +9,8 @@ import { ActionIcon, Avatar, Button } from '@mantine/core';
 import useStore from '../store';
 import NewPostIcon from '../img/new_post_bttn';
 import BlogHooks from './BlogHooks';
+import Logout from '../img/logout';
+import Homeicon from '../img/logo';
 
 function Nav(props) {
   const authenticated = useStore(({ authSlice }) => authSlice.authenticated);
@@ -49,7 +52,7 @@ function Nav(props) {
   return (
     <nav className="navBar">
       <div className="leftnavSection">
-        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/"><Homeicon style={{ height: '50px', width: '50px', fill: '#41093E' }} /></NavLink></li>
 
       </div>
 
@@ -74,11 +77,35 @@ function Nav(props) {
         )
       }{profileClick && (
         <div className="profilemenu" ref={profilemenu}>
-          <div className="menuItem">
-            <h4>Settings</h4>
+          <div className="editProfile menuItem">
+            <Avatar // Prevent event propagation
+              className="profile"
+              onClick={() => setprofileClick(!profileClick)}
+              name={user_name}
+              color="initials"
+            />
+            <span className="text-wrapper">
+              <span className="edit-text">
+                Edit Profile
+              </span>
+              <span className="name-text">
+                {user_name}
+              </span>
+            </span>
           </div>
           <div className="menuItem">
-            <Button color="#41093E" radius="xl" onClick={sigingOut}> Sign Out</Button>
+            <span>
+              Settings
+            </span>
+          </div>
+          <div className="menuItem logout-wrapper" onClick={sigingOut}>
+            <span className="logout-icon">
+              <Logout />
+            </span>
+            <span>
+              Log out
+            </span>
+            {/* <Button color="#41093E" radius="xl" onClick={sigingOut}> Sign Out</Button> */}
           </div>
         </div>
       )}

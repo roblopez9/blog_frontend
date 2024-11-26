@@ -68,6 +68,7 @@ function NewPosts(props) {
         <div className="imageUpload">
           <textarea value={coverUrl} onChange={(e) => setImage(e.target.value)} />
         </div>
+
       </div>
       <div className="uploadBttn">
         <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }} onClick={onCreatePost}>
