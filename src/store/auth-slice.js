@@ -12,7 +12,7 @@ export default function createAuthSlice(set, get) {
     loadUser: async () => {
       const token = localStorage.getItem('token');
       //   const ROOT_URL = 'http://localhost:9090';
-
+      console.log('using');
       if (token) {
         // Update authenticated state if token exists
         set(({ authSlice }) => { authSlice.authenticated = true; }, false, 'auth/loadUser');

@@ -86,7 +86,7 @@ function Nav(props) {
             />
             <span className="text-wrapper">
               <span className="edit-text">
-                Edit Profile
+                <NavLink to={`/user/${user_name}`}>Edit Profile</NavLink>
               </span>
               <span className="name-text">
                 {user_name}

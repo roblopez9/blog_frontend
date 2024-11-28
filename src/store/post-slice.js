@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
 
+const ROOT_URL = 'http://localhost:9090';
+
 export default function createPostSlice(set, get) {
   // const ROOT_URL = 'https://backend-blog-dope.onrender.com';
-  const ROOT_URL = 'http://localhost:9090';
 
   return {
     all: [],
@@ -27,17 +28,19 @@ export default function createPostSlice(set, get) {
       // would need pagination but for now we'll just get them all
       // const ROOT_URL = 'http://localhost:9090';
       try {
+        console.log('insidefetch');
         const response = await axios.get(`${ROOT_URL}/api/posts?p=${pagenum}`);
-        set(
-          (state) => ({
-            postSlice: {
-              ...state.postSlice, // Keep the existing postSlice state
-              all: [...state.postSlice.all, ...response.data], // Append new posts to existing ones
-            },
-          }),
-          false, // Disable logging to DevTools by default
-          'post/fetchAllPosts', // Action name for DevTools debugging
-        );
+        set(({ postSlice }) => { postSlice.all = response.data; }, false, 'posts/fetchAllPosts');
+        // set(
+        //   (state) => ({
+        //     postSlice: {
+        //       ...state.postSlice, // Keep the existing postSlice state
+        //       all: [...state.postSlice.all, ...response.data], // Append new posts to existing ones
+        //     },
+        //   }),
+        //   false, // Disable logging to DevTools by default
+        //   'post/fetchAllPosts', // Action name for DevTools debugging
+        // );
       } catch (error) {
         get().errorSlice.newError(error.message);
       }

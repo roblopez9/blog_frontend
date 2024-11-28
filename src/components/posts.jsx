@@ -10,27 +10,28 @@ import BlogHooks from './BlogHooks';
 function Posts(props) {
   const allPosts = useStore(({ postSlice }) => postSlice.all);
   const fetchAllPosts = useStore(({ postSlice }) => postSlice.fetchAllPosts);
-  const [page, setPage] = useState(0);
+  // const [page, setPage] = useState(0);
 
   useEffect(() => {
-    fetchAllPosts(page);
-  }, [page]);
-
-  const handleScroll = (event) => {
-    console.log('Height', document.documentElement.scrollHeight);
-    console.log('top', document.documentElement.scrollTop);
-    console.log('clientHeight', document.documentElement.clientHeight);
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-      // console.log('the page number is' + setPage((prevPage) => prevPage + 1));
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('click', handleScroll);
+    window.scrollTo(0, 0);
+    fetchAllPosts();
   }, []);
+
+  // const handleScroll = (event) => {
+  //   console.log('Height', document.documentElement.scrollHeight);
+  //   console.log('top', document.documentElement.scrollTop);
+  //   console.log('clientHeight', document.documentElement.clientHeight);
+  //   const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+  //   if (scrollTop + clientHeight >= scrollHeight) {
+  //     // console.log('the page number is' + setPage((prevPage) => prevPage + 1));
+  //     setPage((prevPage) => prevPage + 1);
+  //   }
+  // };
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('click', handleScroll);
+  // }, []);
   return (
 
     <div className="postwrapper">
