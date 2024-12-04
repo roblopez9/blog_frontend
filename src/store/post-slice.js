@@ -23,14 +23,35 @@ export default function createPostSlice(set, get) {
         get().errorSlice.newError(error.message);
       }
     },
-    fetchAllPosts: async (pagenum) => {
+    fetchCurrentPosts: async () => {
+      try {
+        const response = await axios.get(`${ROOT_URL}/api/posts?p=0`);
+        set(({ postSlice }) => { postSlice.all = response.data; }, false, 'posts/fetchCurrentPosts');
+      } catch (error) {
+        get().errorSlice.newError(error.message);
+      }
+    },
+    fetchNewPosts: async (pagenum) => {
       // GET
       // would need pagination but for now we'll just get them all
       // const ROOT_URL = 'http://localhost:9090';
       try {
         console.log('insidefetch');
         const response = await axios.get(`${ROOT_URL}/api/posts?p=${pagenum}`);
-        set(({ postSlice }) => { postSlice.all = response.data; }, false, 'posts/fetchAllPosts');
+        console.log(response.data.length);
+        if (response.data.length > 0) {
+          // set(({ postSlice }) => { postSlice.all = response.data; }, false, 'posts/fetchAllPosts');
+          set(
+            (state) => {
+              // Append new data to the existing 'all' array
+              state.postSlice.all = [...state.postSlice.all, ...response.data];
+            },
+            false,
+            'posts/fetchNewPosts',
+          );
+        } else {
+          return false;
+        }
         // set(
         //   (state) => ({
         //     postSlice: {
@@ -58,12 +79,12 @@ export default function createPostSlice(set, get) {
         get().errorSlice.newError(error.message);
       }
     },
-    createPost: async (post, navigate) => {
+    createPost: async (post) => {
       // POST
       // takes in new post data (no id)
       // const ROOT_URL = 'http://localhost:9090';
       try {
-        const response = axios.post(`${ROOT_URL}/api/posts`, post, { headers: { authorization: localStorage.getItem('token') } });
+        const response = await axios.post(`${ROOT_URL}/api/posts`, post, { headers: { authorization: localStorage.getItem('token') } });
         console.log(response);
         // set(({ postSlice }) => {postSlice.all = response.data; }, false);
       } catch (error) {

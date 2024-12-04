@@ -18,6 +18,7 @@ function NewPosts(props) {
   const newPost = useStore(({ postSlice }) => postSlice.createPost);
   const navigate = useNavigate();
   const fetchAllPosts = useStore(({ postSlice }) => postSlice.fetchAllPosts);
+  const fetchCurrentPosts = useStore(({ postSlice }) => postSlice.fetchCurrentPosts);
   const [img, setImg] = useState('');
   const validFileType = ['image/jpeg', 'image/png', 'image/jpg'];
   const [wrong, setWrong] = useState('');
@@ -50,7 +51,7 @@ function NewPosts(props) {
         Tags: tags,
         coverUrl: url,
       }, navigate);
-      await fetchAllPosts(); // Re-fetch all posts after creating the new one
+      await fetchCurrentPosts(); // Re-fetch all posts after creating the new one
       navigate('/');
     } catch (error) {
       console.log(error);

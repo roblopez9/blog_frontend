@@ -21,7 +21,9 @@ function Postid(params) {
   const fetchPost = useStore(({ postSlice }) => postSlice.fetchPost);
   const post = useStore(({ postSlice }) => postSlice.current);
   const deletePost = useStore(({ postSlice }) => postSlice.deletePost);
+  const fetchCurrentPosts = useStore(({ postSlice }) => postSlice.fetchCurrentPosts);
   const updatePost = useStore(({ postSlice }) => postSlice.updatePost);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
@@ -30,9 +32,11 @@ function Postid(params) {
 
   const deletingPost = async () => {
     // if (currentemail === post.Author.email) {
-      await deletePost(id);
-      // console.log('is the author of post');
-      navigate('/');
+    await deletePost(id);
+    await fetchCurrentPosts();
+    window.scrollTo(0, 0);
+    // console.log('is the author of post');
+    navigate('/');
     // } else {
     //   console.log('not the author');
     // }
@@ -44,6 +48,9 @@ function Postid(params) {
       Content: content,
       Tags: tags,
     });
+    await fetchCurrentPosts();
+    window.scrollTo(0, 0);
+
     navigate('/');
   };
 
@@ -82,47 +89,49 @@ function Postid(params) {
 
   return (
     <div className="postIdContainer">
+      <div className="postInfoWrapper">
+        <div className="tagsContainer">
+
+          {
+            tagisediting && currentemail === post.Author.email ? (
+              <input className="editableInput" onBlur={() => setTagisediting(false)} value={tags} onChange={(e) => setTags(e.target.value)} />
+            )
+              : (
+                <p className="editableInput" onClick={() => setTagisediting(true)}>{tags}</p>
+
+              )
+          }
+        </div>
+        <div className="postTitle">
+          {
+            titleisediting && currentemail === post.Author.email ? (
+              <input className="editableInput" onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />
+            )
+              : (
+                <h1 onClick={() => setTitleisediting(true)}>{title}</h1>
+
+              )
+          }
+        </div>
+        <div className="authorName">
+          <span>
+            Author: {post.Author.username}
+          </span>
+        </div>
+      </div>
       <div className="postImgCove">
         <img src={post.coverUrl} alt="" />
       </div>
-      <div className="authorName">
-        <h2>
-          Author: {post.Author.username}
-        </h2>
-      </div>
-      <div className="tagsContainer">
-
-        {
-          tagisediting && currentemail === post.Author.email ? (
-            <input className="editableInput" onBlur={() => setTagisediting(false)} value={tags} onChange={(e) => setTags(e.target.value)} />
-          )
-            : (
-              <p className="editableInput" onClick={() => setTagisediting(true)}>{tags}</p>
-
-            )
-        }
-      </div>
-      <div className="postTitle">
-        {
-          titleisediting && currentemail === post.Author.email ? (
-            <input className="editableInput" onBlur={() => setTitleisediting(false)} value={title} onChange={(e) => setTitle(e.target.value)} />
-          )
-            : (
-              <h1 onClick={() => setTitleisediting(true)}>{title}</h1>
-
-            )
-        }
-      </div>
-      <div>
+      <div className="blogContainer">
 
         {
           contentisediting && currentemail === post.Author.email ? (
             <textarea onBlur={() => setContentisediting(false)} value={content} onChange={(e) => setWord(e.target.value)} />
           )
             : (
-              <h3 onClick={() => setContentisediting(true)}>
+              <span onClick={() => setContentisediting(true)}>
                 <ReactMarkdown>{content}</ReactMarkdown>
-              </h3>
+              </span>
 
             )
         }
