@@ -77,6 +77,7 @@ function Nav(props) {
         )
       }{profileClick && (
         <div className="profilemenu" ref={profilemenu}>
+
           <div className="editProfile menuItem">
             <Avatar // Prevent event propagation
               className="profile"
